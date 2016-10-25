@@ -1,5 +1,7 @@
 // Initialize your app
-var myApp = new Framework7();
+var myApp = new Framework7({
+    material: true
+});
 
 // Export selectors engine
 var $$ = Dom7;
@@ -13,18 +15,20 @@ var mainView = myApp.addView('.view-main', {
 //handle login action
 $$('#submit_login').on('click', function () {
     var queryForm = myApp.formToJSON('#login_form');
-    if(!queryForm.email && !queryForm.password){
-        
+    if(!queryForm.email || !queryForm.password){
+        myApp.addNotification({
+            title: 'Validation Error',
+            message: 'Kindly fill in your Email Address or Password'
+        });
+    }else{
+        myApp.showPreloader('logging in');
+        // console.log('fdfd');
+        $$.post(CONFIG.get('LOGIN_SUBMIT'), queryForm, function (data) {
+            console.log(data);
+        });
+
     }
-    console.log(JSON.stringify(queryForm));
-});
-//do get request
-$$.get('path-to-file.php', {id: 3}, function (data) {
-    console.log(data);
+
 });
 
-//do post request
-$$.post('path-to-file.php', {id: 3}, function (data) {
-    console.log(data);
-});
 

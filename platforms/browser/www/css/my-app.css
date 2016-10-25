@@ -1,0 +1,7 @@
+.background_pic{
+    background: url('../img/background.jpg');
+    background-size: cover;
+}
+.white{
+    color: #fff;
+}
